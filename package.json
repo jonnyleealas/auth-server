@@ -17,5 +17,13 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.5"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonnyleealas/auth-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jonnyleealas/auth-server/issues"
+  },
+  "homepage": "https://github.com/jonnyleealas/auth-server#readme"
 }
