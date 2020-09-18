@@ -2,8 +2,11 @@
 
 // this get loaded as async in the router 
 // ie cost basicAuth = reuiqre alsdjsjdl;f
+const express = require('express')
+const bcrypt = require('bcrypt')
 const base64 = require('base-64');
 const users = require('../models/users-model')
+
 // req.params, req.body, req.query, req.headers -- all express methods
 // req. anything belongs to me
  module.exports = async (req, res, next) =>{
@@ -12,9 +15,9 @@ const users = require('../models/users-model')
         let encoded = authorization.split('')[1]
         let cred = base64.decode(encoded);
         let [username, password] = cred.split(':');
-
         // get user instance from the model if we can
         let userRecord = await users.validateBasic(username, password);
+        console.log(encoded)
 
         // if its good send a token
 
