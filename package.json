@@ -1,7 +1,7 @@
 {
   "name": "auth-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "# Description This project is an API that allows user to create a username and password for sign up and login purposes. Passwords are encrypted, hashed, and a token is created for api usage. Mongodb is used as a database. Every pull request should run test using jest. Github actions runs these tests to allow revising before merging pull requests.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -25,5 +25,6 @@
   "bugs": {
     "url": "https://github.com/jonnyleealas/auth-server/issues"
   },
-  "homepage": "https://github.com/jonnyleealas/auth-server#readme"
+  "homepage": "https://github.com/jonnyleealas/auth-server#readme",
+  "devDependencies": {}
 }
