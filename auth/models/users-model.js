@@ -14,6 +14,10 @@ users.pre('save', async function(){
     console.log(' the password is', this.password)
 })
 
+users.authenticateBasic = async function (user, password){
+    let valid = await bcrypt.compare(password, )
+}
+
 users.methods.generateToken = async function(){
     // turns user into an object
     let token = jsonToken.sign({username: this.username}, process.env.SECRET)

@@ -4,7 +4,10 @@ const express = require('express')
 const base64 = require('base-64');
 const users = require('../models/users-model')
 const basicAuth = require('../middleware/basic')
+
+
 const router = express.Router();
+
 router.post('/signup', async (req, res)=>{
     // username, pw, email, ets..
     // will be on req.body the body of the request to do this add global middleware express.json and exp.urlencoded
@@ -15,12 +18,18 @@ router.post('/signup', async (req, res)=>{
         password: req.body.password
     }
     let record = new users(obj);
+
     let newUser = await record.save()
 
     let token = record.generateToken();
+
+    let output = {
+        user: newUser,
+        token: token
+    }
     console.log({token})
     // prove it
-    res.status(201).json(newUser)
+    res.status(201).json(output)
 
     } catch (e){
       next(e.message)

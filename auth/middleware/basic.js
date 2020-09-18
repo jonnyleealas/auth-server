@@ -22,12 +22,14 @@ const users = require('../models/users-model')
         // if its good send a token
 
         req.token = userRecord.generateToken();
+
         req.user = userRecord;
+
         next();
-        // res.send(201).send(token);
+        
     } catch (e) {
         console.log(e)
-        next('invalid login');
+        next('invalid login bruh');
     }
      next();
  }
