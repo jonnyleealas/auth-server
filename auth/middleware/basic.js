@@ -15,9 +15,11 @@ const users = require('../models/users-model')
         let encoded = authorization.split(' ')[1]
         let cred = base64.decode(encoded);
         let [username, password] = cred.split(':');
+
+
         // get user instance from the model if we can
         let userRecord = await users.validateBasic(username, password);
-        console.log(encoded)
+  
 
         // if its good send a token
 

@@ -15,7 +15,7 @@ users.pre('save', async function () {
 })
 
 
-users.methods.generateToken = async function(){
+users.methods.generateToken = function(){
     let tokenObj = {
         username: this.username,
         person: true
@@ -32,5 +32,11 @@ users.statics.validateBasic = async function (username, password){
     if(isValid) { return user; }
     else { return undefined; }
 }
+
+users.statics.authenticateWithToken = function (token) {
+    let parsedToken = jwt.verify(token, process.env.SECRET);
+    return this.findOne({ username: parsedToken.username })
+  }
+  
 
 module.exports= mongoose.model('users', users)
