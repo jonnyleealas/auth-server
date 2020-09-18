@@ -9,19 +9,28 @@ const users = mongoose.Schema({
     password: { type: String, required: true }
 })
 
-users.pre('save', async function(){
+users.pre('save', async function () {
     this.password = await bcrypt.hash(this.password, 5)
     console.log(' the password is', this.password)
 })
 
-users.authenticateBasic = async function (user, password){
-    let valid = await bcrypt.compare(password, )
-}
 
 users.methods.generateToken = async function(){
+    let tokenObj = {
+        username: this.username,
+        person: true
+    }
     // turns user into an object
-    let token = jsonToken.sign({username: this.username}, process.env.SECRET)
+    let token = jsonToken.sign(tokenObj, process.env.SECRET)
     return token;
+}
+
+users.statics.validateBasic = async function (username, password){
+    let user = await this.findOne({username: username});    
+    let isValid = await bcrypt.compare(password, user.password )
+
+    if(isValid) { return user; }
+    else { return undefined; }
 }
 
 module.exports= mongoose.model('users', users)

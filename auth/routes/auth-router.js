@@ -8,7 +8,7 @@ const basicAuth = require('../middleware/basic')
 
 const router = express.Router();
 
-router.post('/signup', async (req, res)=>{
+router.post('/signup', async (req, res, next)=>{
     // username, pw, email, ets..
     // will be on req.body the body of the request to do this add global middleware express.json and exp.urlencoded
     // use the users module to create a new user
@@ -27,9 +27,9 @@ router.post('/signup', async (req, res)=>{
         user: newUser,
         token: token
     }
-    console.log({token})
+    console.log({output}, 'signup')
     // prove it
-    res.status(201).json(output)
+    res.status(200).json(output)
 
     } catch (e){
       next(e.message)
