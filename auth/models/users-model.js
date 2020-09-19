@@ -24,22 +24,19 @@ users.methods.generateToken = function() {
     return token;
 }
 
-users.statics.validateBasic = async function (username, password) {
+users.statics.validateBasic = async function (username, password){
+    let user = await this.findOne({ username: username});    
+    let isValid = await bcrypt.compare(password, user.password )
 
-    //look up the user by the username
-    let user = await this.findOne({ username: username });
-  
-    //compare pw sent against db pw
-    let isValid = await bcrypt.compare(password, user.password)
-  
-    if (isValid) { return user; }
+    if(isValid) { return user; }
     else { return undefined; }
-  
-  }
+}
 
-  users.statics.authWithToken = function (token) {
+users.statics.authWithToken = function (token) {
     let parsedToken = jsonToken.verify(token, process.env.SECRET);
-    return this.findOne({ username: parsedToken.username })
+    // return this.findOne({ username: parsedToken.username })
+    console.log('Parsed Token:',parsedToken)
+    return this.findOne({ username: parsedToken.username})
   }
   
 
