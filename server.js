@@ -5,6 +5,7 @@ const base64 = require('base-64');
 const users = require('./auth/models/users-model')
 const basicAuth = require('./auth/middleware/basic')
 const authRouter = require('./auth/routes/auth-router')
+const testRoutes = require('./test-routes')
 
 
 const app = express()
@@ -12,7 +13,7 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(authRouter);
-
+app.use(testRoutes);
 
 
 // 404 not found handler

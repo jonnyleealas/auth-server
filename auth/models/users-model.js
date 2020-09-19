@@ -3,7 +3,6 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const jsonToken = require('jsonwebtoken');
-
 const users = mongoose.Schema({
     username: { type: String, required: true },
     password: { type: String, required: true }
@@ -15,26 +14,31 @@ users.pre('save', async function () {
 })
 
 
-users.methods.generateToken = function(){
+users.methods.generateToken = function() {
     let tokenObj = {
         username: this.username,
-        person: true
+        
     }
     // turns user into an object
     let token = jsonToken.sign(tokenObj, process.env.SECRET)
     return token;
 }
 
-users.statics.validateBasic = async function (username, password){
-    let user = await this.findOne({username: username});    
-    let isValid = await bcrypt.compare(password, user.password )
+users.statics.validateBasic = async function (username, password) {
 
-    if(isValid) { return user; }
+    //look up the user by the username
+    let user = await this.findOne({ username: username });
+  
+    //compare pw sent against db pw
+    let isValid = await bcrypt.compare(password, user.password)
+  
+    if (isValid) { return user; }
     else { return undefined; }
-}
+  
+  }
 
-users.statics.authenticateWithToken = function (token) {
-    let parsedToken = jwt.verify(token, process.env.SECRET);
+  users.statics.authWithToken = function (token) {
+    let parsedToken = jsonToken.verify(token, process.env.SECRET);
     return this.findOne({ username: parsedToken.username })
   }
   
