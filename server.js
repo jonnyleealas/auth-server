@@ -1,49 +1,28 @@
 'use strict'
 
 const express = require('express')
-const users = require('./users-model')
-const app = express()
+const base64 = require('base-64');
+const users = require('./auth/models/users-model')
+const basicAuth = require('./auth/middleware/basic')
+const authRouter = require('./auth/routes/auth-router')
+const testRoutes = require('./test-routes')
 
+
+const app = express()
 // global middleware it get the req.body for you so you can call req.body.
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-
-app.post('/signup', async (req, res)=>{
-    // username, pw, email, ets..
-    // will be on req.body the body of the request to do this add global middleware express.json and exp.urlencoded
-    // use the users module to create a new user
-    try{
-    let obj = {
-        username: req.body.username,
-        password: req.body.password
-    }
-    let record = new users(obj);
-    let newUser = await record.save()
-
-    let token = record.generateToken();
-    console.log({token})
-    // prove it
-    res.status(201).json(newUser)
-
-    } catch (e){
-        next(e.message)
-    }
- 
-})
-
-app.post('/signin', (req, res, next)=>{
-    res.send('signin ok')
-})
-
+app.use(authRouter);
+app.use(testRoutes);
 
 
 // 404 not found handler
 app.use('*', ( req, res, next)=>{
      res.status(404).send('not found')
 })
-//error handler last express route
-app.use( (err, req, res , next)=>{
-    req.status(500).send(err)
+
+app.get('/secretstuff', basicAuth, (req, res)=>{
+    res.send('hi')
 })
 module.exports ={
     app,
