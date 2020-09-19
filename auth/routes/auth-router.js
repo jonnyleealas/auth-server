@@ -42,6 +42,7 @@ router.post('/signin', basicAuth,(req, res, next)=>{
         user: req.user,
         token: req.token
     }
+    console.log('signed in')
  res.status(200).json(output)
  })
  

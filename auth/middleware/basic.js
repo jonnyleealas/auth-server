@@ -27,7 +27,7 @@ const users = require('../models/users-model')
 
         req.user = userRecord;
 
-        next();
+        // next();
         
     } catch (e) {
         console.log(e)
