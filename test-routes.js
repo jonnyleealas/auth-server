@@ -7,7 +7,7 @@ const bearer = require('./auth/middleware/bearer');
 const router = express.Router();
 
 router.get('/secretroute', bearer, (req, res)=>{
-    res.status(200).send('welcome to the secret route bearer');
+    res.status(200).send(`Welcome to the secret route, ${req.user.username}`);
 })
 
 module.exports = router;

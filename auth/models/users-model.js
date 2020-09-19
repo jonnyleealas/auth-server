@@ -34,7 +34,7 @@ users.statics.validateBasic = async function (username, password){
 
 users.statics.authWithToken = function (token) {
     let parsedToken = jsonToken.verify(token, process.env.SECRET);
-    // return this.findOne({ username: parsedToken.username })
+    
     console.log('Parsed Token:',parsedToken)
     return this.findOne({ username: parsedToken.username})
   }
