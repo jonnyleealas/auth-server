@@ -1,10 +1,9 @@
 'use strict';
 
 const express = require('express')
-const base64 = require('base-64');
 const users = require('../models/users-model')
 const basicAuth = require('../middleware/basic')
-
+const bearerAuth = require('../middleware/bearer')
 
 const router = express.Router();
 
@@ -43,7 +42,19 @@ router.post('/signin', basicAuth,(req, res, next)=>{
         token: req.token
     }
     console.log('signed in bruh')
- res.status(200).json(output)
+    res.status(200).json(output)
  })
+
+// sets a token
+router.get('/users', bearerAuth, async (req, res, next)=>{
+    const usersList = await users.find({});
+    res.set('auth', req.token);
+    console.log('Inside users route using bearer')
+    res.status(200).json(usersList);
+})
+
+router.get('/secretstuff', basicAuth, (req, res)=>{
+    res.status(200).send('In secret stuff')
+})
  
  module.exports = router;
