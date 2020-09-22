@@ -31,8 +31,6 @@ GET
 POST
 PUT
 DELETE
-
-
 ```
 ```
 - To view mongodb data type the following command inside terminal:- To delete mongodb data type the following commands inside terminal: mongo auth -> db.users.find({});
@@ -51,10 +49,17 @@ The following dependencies will install following step 1.
 
 ```
 
-
-
-
+# Task Checklist
+- [x] Post a to Sign up route.
+- [x] Post to sign in route.
+- [x] Create method in schema to authenticate hashed password.
+- [x] Create method in schema to generate new token.
+- [x] Create middleware Bearer auth that takes a token for authentication.
+- [x] Create middle basic auth that take username and password
+- [x] Create Get route /users that returns JSON object.
+- [x] Post to sign in route.
+- [x] Middleware for 500 and 404 errors
 
 
 # UML
-[Lab13 UML](./assets/uml13.md)
+[Lab11 UML](./assets/uml13.md)
